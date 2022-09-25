@@ -9,8 +9,55 @@
 </head>
 
 <body>
+    <div class="body margem-topo-10 bg-silver">
+        <span class="cl-black" id="dadosUsuario"></span>
+    </div>
+    <div class="body margem-topo-10" id="botoes">
+        <button class="bg-gray bold margem-direita-15" id="habilitarLogoff" onclick="logoff()">Logoff</button>
+        <button id="btnUsuario" onclick="usuarioInicializar(); return false" class="bg-goldenrod bold margem-direita-15">Usuários</button>
+        <button id="btnAcao" onclick="acaoInicializar(); return false" class="bg-gold bold">Ações</button>
+    </div>
+    <br>
+    <br>
+        <div id="paginador" class="paginador">
+            <button href="#" id="criar" onclick="inserir(); return false" class="margem-direita-15 bg-yellow bold">Criar</button>
+            <button class="bold" href="#" id="primeiro" onclick="paginaPrimeira()"> |< </button>
+            <button class="bold" href="#" id="anterior" onclick="paginaAnterior()"> << </button>
+            <span class="bg-silver bold raio-05 fonte-01" id="pager"></span>
+            <button class="bold" href="#" id="proximo" onclick="paginaProxima()"> >> </button>
+            <button class="bold" href="#" id="ultimo" onclick="paginaUltima()"> >| </button>
+        </div>
 
-  <p>Olá</p>
-  
+        <table id="tabela" class="border-cheia"></table>
+
+        <div id="info"></div>
+    
+        <br>
+        <select id="selPerfis" title="selPerfis" name="selPerfis" type="combobox" size="6" class="item-md mouse-over" multiple>
+        </select>
+
+        <div class="body margem-topo-10" id="loginusuario">
+            <!-- Login-->
+                <form class="border">
+                  <td>
+                      <label class="margem-esquerda-15" for="matriculaLogin">Matrícula</label>
+                      <br>
+                      <input class="uppercase margem-esquerda-15 fonte-01" type="text" maxlength="15" id="matriculaLogin">
+                  </td>
+                  <br>
+                  <br>
+                  <td>
+                    <label class="margem-esquerda-15" for="senhaLogin">Senha</label>
+                    <br>
+                    <input class="margem-esquerda-15" type="password" maxlength="25" id="senhaLogin">
+                     <p id="mensagemlogin" class="cl-black"></p>
+                  </td>
+                  <div>
+                      <button type="submit" onclick="login(); return false" class="bg-silver margem-esquerda-75">Entrar</button>
+                  </div>
+                </form>
+        </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
