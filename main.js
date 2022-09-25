@@ -677,7 +677,7 @@ function usuarioCriar() {
     usuarioLimparInfo();
 }
 
-const perfis = perfilGetAll();
+const perfis = null; //perfilGetAll();
 
 function preencherPerfis(perfil) {
     var selecao = document.getElementById("selPerfis");
