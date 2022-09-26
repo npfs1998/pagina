@@ -26,21 +26,13 @@ function get(caminho) {
 }
 
 function put(caminho, dado) {
-    const _url = url + '/' + caminho;
-    let request = new XMLHttpRequest();
-    request.open("PUT", _url, false);
-    request.setRequestHeader('Content-type','application/json; charset=utf-8');
-    request.send(JSON.stringify(dado));
-    return request.responseText;
+
 }
 
 function post(caminho, dado) {
-    const _url = url + '/' + caminho;
-    let request = new XMLHttpRequest();
-    request.open("POST", _url, false);
-    request.setRequestHeader('Content-type','application/json; charset=utf-8');
-    request.send(JSON.stringify(dado));
-    return request.responseText;
+    if (modulo == "usuario") usuarios_.push(dado);
+    else
+    if (modulo == "acao") acoes_.push(dado);
 }
 
 // ----- BD Usuário
@@ -645,11 +637,11 @@ function usuarioCriar() {
     var matricula = String(_matricula.value).toUpperCase();
     var nome = String(_nome.value).toUpperCase();
 
-    var usuario = new Usuario(0, matricula, nome, "padrao12345", "0", 
+    var usuario = new Usuario(fonte.length, matricula, nome, "padrao12345", "0", 
             verificarPerfil(),  uusuario);
 
     const resp = post("usuario", usuario);
-    alert(resp);
+    alert("Usuário inserido!");
     fonte = null;
     usuarioListar();
     usuarioLimparInfo();
@@ -960,11 +952,11 @@ function acaoCriar() {
     var descricao = String(_descricao.value).toUpperCase();
     var observacao = String(_observacao.value);
     
-    var acao = new Acao(0, horarioAtual(''), uusuario, descricao, observacao,
+    var acao = new Acao(fonte.length, new Date(), uusuario, descricao, observacao,
                         "0", uusuario, umatricula, unome);
 
     const resp = post("acao", acao);
-    alert(resp);
+    alert("Ação criada!");
     fonte = null;
     acaoListar();
     acaoLimparInfo();
