@@ -14,16 +14,27 @@ var pagina = 1;
 var fonte = null;
 var modulo = null;
 
+var usuarios_ = [];
+var acoes_ = [];
+var perfis_ = [];
+
+usuarios_.push(new Usuario(1,'ADMIM', 'ADMIN', '123456', '0', '1111100000000000000000000',1));
+usuarios_.push(new Usuario(2,'ADMIM2', 'ADMIN2', '123456', '0', '1111100000000000000000000',1));
+
+acoes_.push(new Acao(1, '25/09/2022 21:05:10', 1, 'TESTE', 'TESTE', '0', 1, 'ADMIM', 'ADMIN'));
+acoes_.push(new Acao(2, '25/09/2022 21:15:26', 1, 'TESTE 2', 'TESTE 2', '0', 1, 'ADMIM', 'ADMIN'));
+
+perfis_.push(new Perfil(0, 'Administrador'));
+perfis_.push(new Perfil(1, 'Perfil 1'));
+perfis_.push(new Perfil(2, 'Perfil 2'));
+perfis_.push(new Perfil(3, 'Perfil 3'));
+perfis_.push(new Perfil(4, 'Perfil 4'));
+
 function get(caminho) {
     const _url = url + '/' + caminho;
     let request = new XMLHttpRequest();
     request.open("GET", _url, false);
     request.setRequestHeader('Content-type','application/json; charset=utf-8');
-    /*request.onreadystatechange = function() {
-        if (request.readyState == 4) {
-            console.log(request.responseText);
-        }
-    }*/
     request.send();
     return request.responseText;
 }
@@ -49,21 +60,15 @@ function post(caminho, dado) {
 // ----- BD Usuário
 
 function usuarioGetAll() {
-    data = get("usuario");
-    retorno = JSON.parse(data);
-    return retorno;
+    return usuarios_;
 }
 
 function usuarioGetId(id) {
-    data = get("usuario/" + id);
-    retorno = JSON.parse(data);
-    return retorno[0];
+    return usuarios_[id - 1]
 }
 
 function usuarioGetMatricula(id) {
-    data = get("usuario/matricula/" + id);
-    retorno = JSON.parse(data);
-    return retorno[0];
+    return usuarios[0];
 }
 
 function validaUsuario(id, sh) {
@@ -71,27 +76,9 @@ function validaUsuario(id, sh) {
     retorno = JSON.parse(data);
     return retorno[0];
 }
-/*
-function encripta(str) {
-    let encripta1 = encriptar(str);
-    let encripta2 = encripta1.substring(9, 36).trim() + 
-    encripta1.substring(8, 28).trim() + 
-    encripta1.substring(0, 10).trim() +
-    encripta1.substring(25, 100).trim() +
-    encripta1.substring(16, 64).trim();     
-    encripta1 = encriptar(encripta2);
-    return encripta1;
-};
 
-function encriptar(texto) {
-    const cyjs = require('crypto-js');
-    return cyjs.SHA512(texto).toString(cyjs.enc.Base64);
-}
-*/
 function perfilGetAll() {
-    data = get("usuario/perfis");
-    retorno = JSON.parse(data);
-    return retorno;
+    return perfis_;
 }
 
 function valida(texto) {
@@ -128,15 +115,11 @@ function efetuarLogoff() {
 // ----- BD Ação
 
 function acaoGetAll() {
-    data = get("acao");
-    retorno = JSON.parse(data);
-    return retorno;
+    return acoes_;
 }
 
 function acaoGetId(id) {
-    data = get("acao/" + id);
-    retorno = JSON.parse(data);
-    return retorno[0];
+    return acoes_[id - 1];
 }
 
 // Métodos comuns
@@ -247,9 +230,9 @@ function login() {
     var senhaok = false;
  
     if (usuario) {
-        const _valida = validaUsuario(usuario.id, valida(_senha));
-        if (_valida)
-            senhaok = (_valida.ret == "ok");
+   //     const _valida = validaUsuario(usuario.id, valida(_senha));
+   //     if (_valida)
+            senhaok = (_senha == usuario.senha);
     }
     else {
         mensagemLogin("Usuário não encontrado!");
@@ -568,6 +551,14 @@ class Usuario {
     }
 };
 
+class Perfil {
+    constructor(id, descricao) {
+      this.id = id;
+      this.descricao = descricao;
+      this.auxiliar = false;
+    }
+};
+
 function usuarioSalvar(id) {
     var _matricula = document.getElementById("matricula");
     var _nome = document.getElementById("nome");
@@ -677,7 +668,7 @@ function usuarioCriar() {
     usuarioLimparInfo();
 }
 
-const perfis = null; //perfilGetAll();
+const perfis = perfilGetAll();
 
 function preencherPerfis(perfil) {
     var selecao = document.getElementById("selPerfis");
