@@ -637,7 +637,7 @@ function usuarioCriar() {
     var matricula = String(_matricula.value).toUpperCase();
     var nome = String(_nome.value).toUpperCase();
 
-    var usuario = new Usuario(fonte.length, matricula, nome, "padrao12345", "0", 
+    var usuario = new Usuario(fonte.length + 1, matricula, nome, "padrao12345", "0", 
             verificarPerfil(),  uusuario);
 
     const resp = post("usuario", usuario);
@@ -952,7 +952,7 @@ function acaoCriar() {
     var descricao = String(_descricao.value).toUpperCase();
     var observacao = String(_observacao.value);
     
-    var acao = new Acao(fonte.length, new Date(), uusuario, descricao, observacao,
+    var acao = new Acao(fonte.length + 1, new Date(), uusuario, descricao, observacao,
                         "0", uusuario, umatricula, unome);
 
     const resp = post("acao", acao);
