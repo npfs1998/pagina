@@ -14,21 +14,7 @@ var pagina = 1;
 var fonte = null;
 var modulo = null;
 
-var usuarios_ = [];
-var acoes_ = [];
-var perfis_ = [];
-
-usuarios_.push(new Usuario(1,'ADMIM', 'ADMIN', '123456', '0', '1111100000000000000000000',1));
-usuarios_.push(new Usuario(2,'ADMIM2', 'ADMIN2', '123456', '0', '1111100000000000000000000',1));
-
-acoes_.push(new Acao(1, '25/09/2022 21:05:10', 1, 'TESTE', 'TESTE', '0', 1, 'ADMIM', 'ADMIN'));
-acoes_.push(new Acao(2, '25/09/2022 21:15:26', 1, 'TESTE 2', 'TESTE 2', '0', 1, 'ADMIM', 'ADMIN'));
-
-perfis_.push(new Perfil(0, 'Administrador'));
-perfis_.push(new Perfil(1, 'Perfil 1'));
-perfis_.push(new Perfil(2, 'Perfil 2'));
-perfis_.push(new Perfil(3, 'Perfil 3'));
-perfis_.push(new Perfil(4, 'Perfil 4'));
+var perfis = null;
 
 function get(caminho) {
     const _url = url + '/' + caminho;
@@ -68,7 +54,7 @@ function usuarioGetId(id) {
 }
 
 function usuarioGetMatricula(id) {
-    return usuarios[0];
+    return usuarios_[0];
 }
 
 function validaUsuario(id, sh) {
@@ -143,6 +129,7 @@ function stringSubstituirCaracter(texto, posicao, novoCaracter) {
 }
 
 function inicializar() {
+    perfis = perfilGetAll();
     habilitarLogin();
     document.getElementById("selPerfis").style.visibility = "hidden";
     document.getElementById("paginador").style.visibility = "hidden";
@@ -228,7 +215,7 @@ function login() {
     var _senha = document.getElementById('senhaLogin').value;
     var usuario = usuarioGetMatricula(_matricula);
     var senhaok = false;
- 
+
     if (usuario) {
    //     const _valida = validaUsuario(usuario.id, valida(_senha));
    //     if (_valida)
@@ -668,8 +655,6 @@ function usuarioCriar() {
     usuarioLimparInfo();
 }
 
-const perfis = perfilGetAll();
-
 function preencherPerfis(perfil) {
     var selecao = document.getElementById("selPerfis");
     selecao.style.visibility = "visible";
@@ -995,5 +980,21 @@ function acaoInicializar() {
     usuarioLimparInfo();
     acaoListar();
 }
+
+var usuarios_ = [];
+var acoes_ = [];
+var perfis_ = [];
+
+usuarios_.push(new Usuario(1,'ADMIM', 'ADMIN', '123456', '0', '1111100000000000000000000',1));
+usuarios_.push(new Usuario(2,'ADMIM2', 'ADMIN2', '123456', '0', '1111100000000000000000000',1));
+
+acoes_.push(new Acao(1, '09/25/2022 21:05:10', 1, 'TESTE', 'TESTE', '0', 1, 'ADMIM', 'ADMIN'));
+acoes_.push(new Acao(2, '09/25/2022 21:15:38', 1, 'TESTE2', 'TESTE2', '0', 1, 'ADMIM', 'ADMIN'));
+
+perfis_.push(new Perfil(0, 'Administrador'));
+perfis_.push(new Perfil(1, 'Perfil 1'));
+perfis_.push(new Perfil(2, 'Perfil 2'));
+perfis_.push(new Perfil(3, 'Perfil 3'));
+perfis_.push(new Perfil(4, 'Perfil 4'));
 
 inicializar();
